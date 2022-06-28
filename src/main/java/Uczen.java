@@ -20,12 +20,12 @@ public class Uczen {
     }
 
     public void wstawOcene(Ocena ocena) {
-        Przedmiot przedmiot = this.listaPrzedmiotowUcznia.stream().filter(p -> p.getIdPrzedmiotu() == ocena.getIdPrzedmiotu()).findFirst().get();
+        Przedmiot przedmiot = listaPrzedmiotowUcznia.stream().filter(p -> p.getIdPrzedmiotu() == ocena.getIdPrzedmiotu()).findFirst().get();
         przedmiot.przypiszOcene(ocena);
     }
 
     public List<Ocena> getListaOcenZPrzedmiotu(String nazwaPrzedmiotu){
-        Przedmiot przedmiot = this.listaPrzedmiotowUcznia.stream().filter(p -> p.getNazwaPrzedmiotu().equals(nazwaPrzedmiotu)).findFirst().get();
+        Przedmiot przedmiot = listaPrzedmiotowUcznia.stream().filter(p -> p.getNazwaPrzedmiotu().equals(nazwaPrzedmiotu)).findFirst().get();
         return przedmiot.getListaOcen();
     }
 
@@ -49,13 +49,20 @@ public class Uczen {
         return iDKlasy;
     }
 
+    public boolean czyChlopak(Uczen uczen){
+        return !uczen.getImie().endsWith("a");
+    }
+
     @Override
     public String toString() {
+
+        String plec = czyChlopak(this) ? " chłopak " : " dziewczyna ";
         return "Uczen {" +
                 "idUcznia = " + idUcznia +
                 ", nazwisko = '" + nazwisko + '\'' +
                 ", imie = '" + imie + '\'' +
                 ", iDKlasy = '" + iDKlasy + '\'' +
+                plec  + '\'' +
                 '}';
     }
 }

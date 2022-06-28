@@ -8,20 +8,33 @@ public class Main {
         Szkola szkola = new Szkola();
         szkola.uruchomSzkole();
 
-
-        List<Uczen> uczniowieSpozaRejonu = szkola.pobierzUczniowZUlic("Sportowa");
+        /**
+         * Zadanie 1: Podaj ilość uczniów mieszkających poza szkołą. Na ulicach Sportowa i Wroncela
+         */
+        List<Uczen> uczniowieSpozaRejonu = szkola.pobierzUczniowZUlic("Sportowa", "Wroncela");
         System.out.println(uczniowieSpozaRejonu.size());
-        uczniowieSpozaRejonu.stream().map(Uczen::toString).forEach(System.out::println);
-
-        List<Uczen> uczniowieZKlasy = szkola.pobierzUczniowZKlasy("3e");
-        System.out.println(uczniowieZKlasy.size());
-        uczniowieZKlasy.stream().map(Uczen::toString).forEach(System.out::println);
 
 
-//        wyświetlOcenyUczniaZDanegoPrzedmiotu(imie, nazwisko, przedmiot);
-
+        /**
+         * Zadanie 2: Wypisz oceny ucznia z przedmiotu: Jan Augustyniak, język polski
+         */
         Uczen uczen = szkola.getUczenByNameAndLastName("Jan", "Augustyniak");
         List<Ocena> listaOcenZPolskliego = uczen.getListaOcenZPrzedmiotu("polski");
         listaOcenZPolskliego.forEach(System.out::println);
+
+//        wypisz uczniów z klasy 3a
+
+
+        List<Uczen> uczniowieWKlasie3a = szkola.getListaUczniowWKlasie("3a");
+        uczniowieWKlasie3a.forEach(System.out::println);
+
+//        /**
+//         * Zadanie 3: Oblicz ile dziewcząt i chłopców jest w poszczególnych klasach
+//         */
+//
+        List<SzkolnaKlasa> listaKlas = szkola.listaKlasWSzkole();
+        listaKlas.forEach(k -> System.out.println());
+//
+
     }
 }

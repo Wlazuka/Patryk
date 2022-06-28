@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Szkola {
@@ -7,14 +6,14 @@ public class Szkola {
 
     private static final String UCZNIOWIE = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Pliki/uczniowie.txt";
     private static final String OCENY = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Pliki/oceny.txt";
-    private static List<Ocena> listaOcen;
-    private static List<Uczen> listaWszystkichUczniow;
-
+    private List<Ocena> listaOcen;
+    private List<Uczen> listaWszystkichUczniow;
+    private Map<String, List<Uczen>> klasyWSzkole;
 
     public void uruchomSzkole() {
         listaOcen = Utils.utworzListeOcen(OCENY);
         listaWszystkichUczniow = Utils.utworzListeUczniow(UCZNIOWIE);
-
+        klasyWSzkole = utworzKlasy();
         wstawOceny();
     }
 
@@ -38,10 +37,22 @@ public class Szkola {
         return listaOcen;
     }
 
-    public void wstawOceny() {
+    private void wstawOceny() {
         for (Ocena ocena : listaOcen){
             Uczen uczen = listaWszystkichUczniow.stream().filter(u -> u.getIdUcznia() == ocena.getIdUcznia()).findFirst().get();
             uczen.wstawOcene(ocena);
         }
+    }
+
+    private Map<String, List<Uczen>> utworzKlasy() {
+        return listaWszystkichUczniow.stream().collect(Collectors.groupingBy(Uczen::getiDKlasy));
+    }
+
+    public List<Uczen> getListaUczniowWKlasie(String idKlasy){
+        return klasyWSzkole.get(idKlasy);
+    }
+
+    public List<SzkolnaKlasa> listaKlasWSzkole(){
+        return klasyWSzkole.values().stream().map(SzkolnaKlasa::new).collect(Collectors.toList());
     }
 }
