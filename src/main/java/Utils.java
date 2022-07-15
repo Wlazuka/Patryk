@@ -26,82 +26,82 @@ public class Utils {
         return allLines;
     }
 
-    private static Uczen stworzUcznia(String linia) {
-        String[] dane = linia.split(";");
-        int idUcznia = Integer.parseInt(dane[0]);
-        String nazwisko = dane[1];
-        String imie = dane[2];
-        String ulica = dane[3];
-        int numerDomu = Integer.parseInt(dane[4]);
-        Adres adres = new Adres(ulica, numerDomu);
-        String iDKlasy = dane[5];
-        return new Uczen(idUcznia, nazwisko, imie, adres, iDKlasy);
+    private static Student createStudent(String line) {
+        String[] data = line.split(";");
+        int id = Integer.parseInt(data[0]);
+        String lastName = data[1];
+        String name = data[2];
+        String street = data[3];
+        int houseNumber = Integer.parseInt(data[4]);
+        Address adres = new Address(street, houseNumber);
+        String idSchoolClass = data[5];
+        return new Student(id, lastName, name, adres, idSchoolClass);
     }
 
-    public static Uczen stworzUczniaRegex(String linia) {
+    public static Student createStudentRegex(String line) {
         Pattern pattern = Pattern.compile("(\\d*).([A-Za-z]*).([a-zA-Z]*).([a-zA-Z]*).(\\d*).(\\d\\D)");
-        Matcher matcher = pattern.matcher(linia);
+        Matcher matcher = pattern.matcher(line);
         if (matcher.matches()) {
-            int idUcznia = Integer.parseInt(matcher.group(1));
-            String nazwisko = matcher.group(2);
-            String imie = matcher.group(3);
-            String ulica = matcher.group(4);
-            int numerDomu = Integer.parseInt(matcher.group(5));
-            Adres adres = new Adres(ulica, numerDomu);
-            String iDKlasy = matcher.group(6);
-            return new Uczen(idUcznia, nazwisko, imie, adres, iDKlasy);
+            int id = Integer.parseInt(matcher.group(1));
+            String lastName = matcher.group(2);
+            String name = matcher.group(3);
+            String street = matcher.group(4);
+            int houseNumber = Integer.parseInt(matcher.group(5));
+            Address adres = new Address(street, houseNumber);
+            String idSchoolClass = matcher.group(6);
+            return new Student(id, lastName, name, adres, idSchoolClass);
         }
         return null;
     }
 
-    public static List<Uczen> utworzListeUczniow(String filePath) {
-        List<Uczen> listaUczniow = new ArrayList<>();
+    public static List<Student> getListOfStudents(String filePath) {
+        List<Student> subjects = new ArrayList<>();
         for (String line : readTxtFile(filePath)) {
-            Uczen uczen = stworzUcznia(line);
-            listaUczniow.add(uczen);
+            Student uczen = createStudent(line);
+            subjects.add(uczen);
         }
-        return listaUczniow;
+        return subjects;
     }
 
-    private static Przedmiot stworzPrzedmiot(String linia){
-        String[] dane = linia.split(";");
-        int idPrzedmiotu = Integer.parseInt(dane[0]);
-        String nazwaPrzedmiotu = dane[1];
-        String nazwiskoNauczyciela = dane[2];
-        String imieNauczyciela = dane[3];
-        return new Przedmiot(idPrzedmiotu, nazwaPrzedmiotu, nazwiskoNauczyciela, imieNauczyciela);
+    private static Subject createSubject(String line){
+        String[] data = line.split(";");
+        int id = Integer.parseInt(data[0]);
+        String name = data[1];
+        String teacherLastName = data[2];
+        String teacherName = data[3];
+        return new Subject(id, name, teacherLastName, teacherName);
     }
 
-    public static List<Przedmiot> utworzListePrzedmiotow(String filePath){
-        List<Przedmiot> listaPrzedmiotow = new ArrayList<>();
+    public static List<Subject> getListOfSubjects(String filePath){
+        List<Subject> subjects = new ArrayList<>();
         for (String line : readTxtFile(filePath)){
-            Przedmiot przedmiot = stworzPrzedmiot(line);
-            listaPrzedmiotow.add(przedmiot);
+            Subject subject = createSubject(line);
+            subjects.add(subject);
         }
-        return listaPrzedmiotow;
+        return subjects;
     }
 
-    private static Ocena stworzOcene(String linia) {
-        String[] dane = linia.split(";");
-        int idUcznia = Integer.parseInt(dane[0]);
-        int ocena = Integer.parseInt(dane[1]);
-        Date data = new Date();
+    private static Grade createGrade(String line) {
+        String[] data = line.split(";");
+        int idOfStudent = Integer.parseInt(data[0]);
+        int grade = Integer.parseInt(data[1]);
+        Date date = new Date();
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            data = formatter.parse(dane[2]);
+            date = formatter.parse(data[2]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        int idPrzedmiotu = Integer.parseInt(dane[3]);
-        return new Ocena(idUcznia, ocena, data, idPrzedmiotu);
+        int idOfSubject = Integer.parseInt(data[3]);
+        return new Grade(idOfStudent, grade, date, idOfSubject);
     }
 
-    public static List<Ocena> utworzListeOcen(String filePath) {
-        List<Ocena> listaOcen = new ArrayList<>();
+    public static List<Grade> getListOfGrades(String filePath) {
+        List<Grade> grades = new ArrayList<>();
         for (String line : readTxtFile(filePath)) {
-            Ocena ocena = stworzOcene(line);
-            listaOcen.add(ocena);
+            Grade ocena = createGrade(line);
+            grades.add(ocena);
         }
-        return listaOcen;
+        return grades;
     }
 }
