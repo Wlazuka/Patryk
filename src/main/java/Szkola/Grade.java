@@ -1,3 +1,5 @@
+package Szkola;
+
 import java.util.Date;
 
 public class Grade {
@@ -32,7 +34,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
+        return "Szkola.Grade{" +
                 "idOfStudent=" + idOfStudent +
                 ", grade=" + grade +
                 ", date=" + date +

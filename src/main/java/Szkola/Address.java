@@ -1,3 +1,5 @@
+package Szkola;
+
 public class Address {
 
     private String street;
@@ -18,7 +20,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "Szkola.Address{" +
                 "street = '" + street + '\'' +
                 ", houseNumber = " + houseNumber +
                 '}';

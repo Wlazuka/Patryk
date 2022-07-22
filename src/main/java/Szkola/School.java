@@ -1,3 +1,5 @@
+package Szkola;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -6,8 +8,8 @@ import java.util.Map.Entry;
 
 public class School {
 
-    private static final String STUDENTS = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Pliki/uczniowie.txt";
-    private static final String GRADES = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Pliki/oceny.txt";
+    private static final String STUDENTS = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Szkola.Pliki/uczniowie.txt";
+    private static final String GRADES = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Szkola.Pliki/oceny.txt";
     private List<Grade> listOfGrades;
     private List<Student> listOfAllStudents;
     private Map<String, List<Student>> classesInSchool;

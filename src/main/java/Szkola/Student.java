@@ -1,8 +1,10 @@
+package Szkola;
+
 import java.util.List;
 
 public class Student {
 
-    private static final String SUBJECTS = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Pliki/przedmioty.txt";
+    private static final String SUBJECTS = "/Users/wlazuka/IdeaProjects/Patryk/src/main/java/Szkola.Pliki/przedmioty.txt";
     private final int id;
     private final String lastName;
     private final String name;
@@ -72,7 +74,7 @@ public class Student {
 
         String gender = this.isABoy() ? " boy " : " girl ";
 
-        return "Student {" +
+        return "Szkola.Student {" +
                 "id = " + id +
                 ", last name = '" + lastName + '\'' +
                 ", name = '" + name + '\'' +
