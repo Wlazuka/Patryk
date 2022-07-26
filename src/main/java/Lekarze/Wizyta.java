@@ -14,6 +14,9 @@ public class Wizyta {
         this.dataWizyty = date;
     }
 
+
+
+
     @Override
     public String toString() {
         return "Wizyta{" +
