@@ -1,7 +1,6 @@
 package Lekarze;
-
-import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Clinic {
@@ -17,8 +16,21 @@ public class Clinic {
         listaLekarzy = Utils.getListOfDoctors(LEKARZE);
         listaPacjentow = Utils.getListOfPatients(PACJENCI);
         wizyty = Utils.createListOfVisits(WIZYTY, listaLekarzy, listaPacjentow);
+        setWizyty();
     }
 
+    public static List<Wizyta> getWizyty() {
+        return wizyty;
+    }
+
+    public void setWizyty(){
+        listaPacjentow.forEach(Pacjent::setWizyty);
+    }
+
+
+    /**
+     *Zadanie 2
+     */
     public List<String> listOfMostPopularSpecialisations(){
         return new ArrayList<>(getMostPopularSpecialisations().keySet());
     }
@@ -50,5 +62,21 @@ public class Clinic {
                 .stream()
                 .filter(entry -> entry.getValue().equals(highestOccurrence))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    /**
+     *Zadanie 5
+     *
+     */
+    public List<Pacjent> getPacjentsWithXVisits(int count){
+        Map<Pacjent, Set<Lekarz>> mapaLekarzy = listaPacjentow
+                .stream()
+                .collect(Collectors.toMap(Function.identity(), Pacjent::getLekarzeUKtorychBylPacjent));
+        return mapaLekarzy
+                .entrySet()
+                .stream()
+                .filter(pacjentSetEntry -> pacjentSetEntry.getValue().size() >= count)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }

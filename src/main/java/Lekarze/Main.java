@@ -1,16 +1,14 @@
 package Lekarze;
 
-import java.io.FileNotFoundException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class Main {
 
-    public Clinic clinic;
+    private Clinic clinic;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args){
 
-
+        Clinic clinic = new Clinic();
 
 //        String specjalizacja = listaLekarzy.get(0).getSpecjalnosc();
 //
@@ -30,10 +28,18 @@ public class Main {
 //        task4();
 
 //    Zadanie 5: Zwróć pacjentów, którzy byli u minimum 5ciu różnych lekarzy
-//        task5();
+        List<Pacjent> list = task5(clinic);
+        for (Pacjent pacjent : list){
+            System.out.println(pacjent.getLekarzeUKtorychBylPacjent());
+        }
+
 
 //    Zadanie 6: Zwrot lekarzy exclusive - czyli takich, którzy przyjmowali tylko jednego pacjenta
 //        task6();
+//
+//        1. z pacjenta wyciągasz jego wizyty,
+//        2. z wizyt wyciągasz lekarzy i robisz distinct, otrzymujesz listę różnych lekarzy
+//        3. sprawdzasz czy liczba różnych lekarzy jest większa/mniejsza niż parametr
 
     }
 
@@ -52,7 +58,8 @@ public class Main {
     private static void task4() {
     }
 
-    private static void task5() {
+    private static List<Pacjent> task5(Clinic clinic) {
+        return clinic.getPacjentsWithXVisits(5);
     }
 
     private static void task6() {

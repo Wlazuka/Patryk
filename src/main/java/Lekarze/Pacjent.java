@@ -1,6 +1,9 @@
 package Lekarze;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Pacjent {
 
@@ -9,7 +12,7 @@ public class Pacjent {
     private final String imie;
     private final String pesel;
     private final LocalDate dataUrodzenia;
-
+    private List<Wizyta> wizyty;
 
     public Pacjent(int id, String nazwisko, String imie, String pesel, LocalDate dataUrodzenia) {
         this.id = id;
@@ -39,14 +42,27 @@ public class Pacjent {
         return dataUrodzenia;
     }
 
+    public void setWizyty(){
+        this.wizyty = Clinic.getWizyty().stream().filter(wizyta -> wizyta.getPacjent().getId() == this.id).collect(Collectors.toList());
+    }
+
+    public Set<Lekarz> getLekarzeUKtorychBylPacjent(){
+       return this.wizyty.stream().map(Wizyta::getLekarz).collect(Collectors.toSet());
+    }
+
     @Override
     public String toString() {
-        return "Pacjent{" +
-                "id=" + id +
-                ", nazwisko='" + nazwisko + '\'' +
-                ", imie='" + imie + '\'' +
-                ", pesel='" + pesel + '\'' +
-                ", dataUrodzenia=" + dataUrodzenia +
-                '}';
+        return "Pacjent{id:" + id + '}';
     }
+//
+//    @Override
+//    public String toString() {
+//        return "Pacjent{" +
+//                "id=" + id + '\n' +
+//                ", nazwisko='" + nazwisko + '\n' +
+//                ", imie='" + imie + '\n' +
+//                ", pesel='" + pesel + '\n' +
+//                ", dataUrodzenia=" + dataUrodzenia +
+//                '}';
+//    }
 }

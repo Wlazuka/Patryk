@@ -53,14 +53,19 @@ public class Lekarz {
 
     @Override
     public String toString() {
-        return "Lekarz{" +
-                "id=" + id +
-                ", nazwisko='" + nazwisko + '\'' +
-                ", imie='" + imie + '\'' +
-                ", specjalnosc='" + specjalnosc + '\'' +
-                ", dataUrodzenia=" + dataUrodzenia +
-                ", nip='" + nip + '\'' +
-                ", pesel='" + pesel + '\'' +
-                '}';
+        return "Lekarz{id: " + id + '}';
     }
+
+//    @Override
+//    public String toString() {
+//        return "Lekarz{" +
+//                "id=" + id  + '\n' +
+//                ", nazwisko='" + nazwisko  + '\n' +
+//                ", imie='" + imie + '\n' +
+//                ", specjalnosc='" + specjalnosc + '\n' +
+//                ", dataUrodzenia=" + dataUrodzenia + '\n' +
+//                ", nip='" + nip + '\n' +
+//                ", pesel='" + pesel + '\n' +
+//                '}';
+//    }
 }

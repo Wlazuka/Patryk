@@ -14,15 +14,24 @@ public class Wizyta {
         this.dataWizyty = date;
     }
 
+    public Lekarz getLekarz() {
+        return lekarz;
+    }
 
+    public Pacjent getPacjent() {
+        return pacjent;
+    }
 
+    public LocalDate getDataWizyty() {
+        return dataWizyty;
+    }
 
     @Override
     public String toString() {
         return "Wizyta{" +
-                "lekarz=" + lekarz +
-                ", pacjent=" + pacjent +
-                ", dataWizyty=" + dataWizyty +
+                "lekarz=" + lekarz + '\n' +
+                ", pacjent=" + pacjent + '\n' +
+                ", dataWizyty=" + dataWizyty + '\n' +
                 '}';
     }
 }
