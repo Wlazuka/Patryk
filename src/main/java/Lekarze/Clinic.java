@@ -25,6 +25,7 @@ public class Clinic {
 
     public void setWizyty(){
         listaPacjentow.forEach(Pacjent::setWizyty);
+        listaLekarzy.forEach(Lekarz::setWizyty);
     }
 
 
@@ -68,15 +69,35 @@ public class Clinic {
      *Zadanie 5
      *
      */
+//    public List<Pacjent> getPacjentsWithXVisits(int count){
+//        Map<Pacjent, Set<Lekarz>> mapaLekarzy = listaPacjentow
+//                .stream()
+//                .collect(Collectors.toMap(Function.identity(), Pacjent::getLekarzeUKtorychBylPacjent));
+//        return mapaLekarzy
+//                .entrySet()
+//                .stream()
+//                .filter(pacjentSetEntry -> pacjentSetEntry.getValue().size() >= count)
+//                .map(Map.Entry::getKey)
+//                .collect(Collectors.toList());
+//    }
+
     public List<Pacjent> getPacjentsWithXVisits(int count){
-        Map<Pacjent, Set<Lekarz>> mapaLekarzy = listaPacjentow
-                .stream()
-                .collect(Collectors.toMap(Function.identity(), Pacjent::getLekarzeUKtorychBylPacjent));
-        return mapaLekarzy
-                .entrySet()
-                .stream()
-                .filter(pacjentSetEntry -> pacjentSetEntry.getValue().size() >= count)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        List<Pacjent> list = listaPacjentow.stream().filter(pacjent -> pacjent.getLekarzeUKtorychBylPacjent().size() == count).collect(Collectors.toList());
+        if (list.size() == 0){
+            System.out.println("Nie znaleziono Pacjenta z " + count + " wizytami");
+        }
+        return list;
+    }
+
+    /**
+     *Zadanie 6
+     *
+     */
+    public List<Lekarz> getListOfDoctorsWithOnlyXPatients(int count){
+       return listaLekarzy.stream().filter(lekarz -> lekarz.getUniquePatients().size() == count).collect(Collectors.toList());
+    }
+
+    public List<Set<Pacjent>> getListaPacjentow(){
+        return listaLekarzy.stream().map(Lekarz::getUniquePatients).collect(Collectors.toList());
     }
 }

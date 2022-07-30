@@ -1,6 +1,9 @@
 package Lekarze;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lekarz {
 
@@ -11,7 +14,7 @@ public class Lekarz {
     private final LocalDate dataUrodzenia;
     private final String nip;
     private final String pesel;
-
+    private List<Wizyta> wizyty;
 
     public Lekarz(int id, String nazwisko, String imie, String specjalnosc, LocalDate dataUrodzenia, String nip, String pesel) {
         this.id = id;
@@ -21,6 +24,22 @@ public class Lekarz {
         this.dataUrodzenia = dataUrodzenia;
         this.nip = nip;
         this.pesel = pesel;
+    }
+
+    public void setWizyty() {
+        this.wizyty = Clinic.getWizyty().stream().filter(wizyta -> wizyta.getLekarz().getId() == this.id).collect(Collectors.toList());
+    }
+
+    public List<Wizyta> getWizyty() {
+        return wizyty;
+    }
+
+    public List<Pacjent> getPatients(){
+        return wizyty.stream().map(Wizyta::getPacjent).collect(Collectors.toList());
+    }
+
+    public Set<Pacjent> getUniquePatients(){
+        return this.wizyty.stream().map(Wizyta::getPacjent).collect(Collectors.toSet());
     }
 
     public int getId() {
@@ -55,6 +74,7 @@ public class Lekarz {
     public String toString() {
         return "Lekarz{id: " + id + '}';
     }
+
 
 //    @Override
 //    public String toString() {
